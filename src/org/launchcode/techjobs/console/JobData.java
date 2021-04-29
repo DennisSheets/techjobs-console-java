@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 /**
  * Created by LaunchCode
  */
@@ -75,14 +76,41 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             String aValue = row.get(column);
+            String bValue = aValue.toLowerCase();
 
-            if (aValue.contains(value)) {
+            //System.out.println("findByColumnAndValue bValue: " + bValue );
+            //System.out.println("findByColumnAndValue aValue: " + aValue );
+
+            if (bValue.contains(value)) {
                 jobs.add(row);
             }
         }
 
         return jobs;
     }
+
+    public static ArrayList<HashMap<String, String>> findByValue(HashMap<String,String> column, String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(column);
+            //String bValue = row.get(column);
+            //for (String column : row) {
+
+
+                if (aValue.contains(value)) {
+                    jobs.add(row);
+                }
+            }
+       // }
+
+        return jobs;
+    }
+
 
     /**
      * Read in data from a CSV file and store it in a list
@@ -105,6 +133,7 @@ public class JobData {
 
             allJobs = new ArrayList<>();
 
+
             // Put the records into a more friendly format
             for (CSVRecord record : records) {
                 HashMap<String, String> newJob = new HashMap<>();
@@ -114,15 +143,17 @@ public class JobData {
                 }
 
                 allJobs.add(newJob);
+                //allJobsLower.add(newJob);
             }
 
-            // flag the data as loaded, so we don't do it twice
+
             isDataLoaded = true;
 
         } catch (IOException e) {
             System.out.println("Failed to load job data");
             e.printStackTrace();
         }
+
     }
 
 }
