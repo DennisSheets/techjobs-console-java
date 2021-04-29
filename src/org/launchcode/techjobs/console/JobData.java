@@ -89,24 +89,45 @@ public class JobData {
         return jobs;
     }
 
-    public static ArrayList<HashMap<String, String>> findByValue(HashMap<String,String> column, String value) {
-
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
         // load data, if not already loaded
         loadData();
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        //System.out.println("findByValue column.values(): " + column.values());
+        //System.out.println("findByValue column: " + column);
+        System.out.println("findByValue value: " + value);
 
         for (HashMap<String, String> row : allJobs) {
-            String aValue = row.get(column);
-            //String bValue = row.get(column);
-            //for (String column : row) {
+            //System.out.println("findByValue row: " + row);
 
+            Integer k = 0;
+            //for (String key : column.values()){
+            for (String key : row.values()){
+                key = key.toLowerCase();
+                //System.out.println("findByValue key: " + key);
+                //System.out.println("k: " + k);
 
-                if (aValue.contains(value)) {
+                if(key.contains(value)) {
+
+//                    String aValue = row.get(column);
+//                    String bValue = aValue.toLowerCase();
+//
+//                    System.out.println("findByValue bValue: " + bValue );
+//                    System.out.println("findByValue aValue: " + aValue );
+//
+//
+//                    if (bValue.contains(value))
                     jobs.add(row);
+                    break;
+
+                } else {
+                    //System.out.println("key: " + key + "    doesn't contain  value: " + value);
+                    //System.out.println("*************\n");
                 }
+                k++;
             }
-       // }
+        }
 
         return jobs;
     }
