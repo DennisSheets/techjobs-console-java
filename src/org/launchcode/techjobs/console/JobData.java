@@ -96,7 +96,7 @@ public class JobData {
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
         //System.out.println("findByValue column.values(): " + column.values());
         //System.out.println("findByValue column: " + column);
-        System.out.println("findByValue value: " + value);
+        //System.out.println("findByValue value: " + value);
 
         for (HashMap<String, String> row : allJobs) {
             //System.out.println("findByValue row: " + row);
