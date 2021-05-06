@@ -7,10 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -21,6 +18,8 @@ public class JobData {
     private static final String DATA_FILE = "resources/job_data.csv";
     private static Boolean isDataLoaded = false;
 
+    private static ArrayList<HashMap<String, String>> allJobsRaw;
+    //private static ArrayList<HashMap<String, String>> allJobsShallow;
     private static ArrayList<HashMap<String, String>> allJobs;
 
     /**
@@ -153,7 +152,8 @@ public class JobData {
             Integer numberOfColumns = records.get(0).size();
             String[] headers = parser.getHeaderMap().keySet().toArray(new String[numberOfColumns]);
 
-            allJobs = new ArrayList<>();
+            allJobsRaw = new ArrayList<>();
+
 
 
             // Put the records into a more friendly format
@@ -163,8 +163,24 @@ public class JobData {
                 for (String headerLabel : headers) {
                     newJob.put(headerLabel, record.get(headerLabel));
                 }
+            // added a shallow clone for Bonus 2  see line 24/25  157   169/170
+                allJobsRaw.add(newJob);
+                allJobs = (ArrayList<HashMap<String, String>>) allJobsRaw.clone();
 
-                allJobs.add(newJob);
+
+                //allJobsShallow = (ArrayList<HashMap<String, String>>) allJobsRaw.clone();
+
+            // adding a deep clone for Bonus 3
+            //  https://howtodoinjava.com/java/collections/arraylist/arraylist-clone-deep-copy/
+
+//                allJobs = new ArrayList<HashMap<String, String>>;
+//                Iterator<ArrayList<HashMap<String, String>>> iterator = allJobsRaw.iterator();
+//                while(iterator.hasNext()){
+//                    allJobs.add((JobData) iterator.next().clone());
+//                }
+
+
+
                 //allJobsLower.add(newJob);
             }
 
